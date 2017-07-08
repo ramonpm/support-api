@@ -1,4 +1,4 @@
-Given(/^a user with id "([^"]*)"$/) do |id|
+Given(/^an user with id "([^"]*)"$/) do |id|
   FactoryGirl.create(:user, id: id)
 end
 

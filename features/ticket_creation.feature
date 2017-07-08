@@ -2,7 +2,7 @@ Feature: Create a ticket
   In order to support a customer he needs to create a ticket
 
   Background:
-    Given a user with id "1"
+    Given an user with id "1"
 
   Scenario: using valid data
     When the client make a valid POST /tickets request with user_id: "1"

@@ -4,6 +4,7 @@ class Ticket < ApplicationRecord
   FINISHED = 20
 
   belongs_to :user
+  has_many :answers
 
   validates :title, presence: true
   validates :description, presence: true
