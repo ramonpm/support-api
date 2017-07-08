@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :ticket do
     title Faker::Lorem.word
-    status Faker::Number.number(0)
+    status Ticket::PENDING
     description Faker::Lorem.sentence
   end
 end
