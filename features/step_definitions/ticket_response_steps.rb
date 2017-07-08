@@ -17,3 +17,8 @@ end
 def valid_answer_creation_params(user_id, ticket_id)
   FactoryGirl.attributes_for(:answer).merge(user_id: user_id).merge(ticket_id: ticket_id)
 end
+
+When(/^the client make a POST \/tickets\/:ticket_id\/answers request without a message with user_id: "([^"]*)" and ticket_id: "([^"]*)"$/) do |user_id, ticket_id|
+  params = {answer: valid_answer_creation_params(user_id, ticket_id).merge(message: '')}
+  post "/tickets/#{ticket_id}/answers", params
+end
