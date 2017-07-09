@@ -2,19 +2,15 @@ require 'rails_helper'
 
 RSpec.describe TicketsController, type: :controller do
   describe 'POST create' do
-    let(:ticket) { FactoryGirl.build(:ticket, id: 1) }
-    let(:params) {{ticket: FactoryGirl.attributes_for(:ticket).merge(user_id: 1)}}
-    let(:permitted_params) { ActionController::Parameters.new(params) }
-    let(:execute_request) {post :create, params: params}
+    let(:ticket) {FactoryGirl.build(:ticket, id: 1)}
 
     before(:all) do
-      ActionController::Parameters.permit_all_parameters = true
+      #FactoryGirl.create(:user, id: 1) if User.find(1).blank?
     end
 
     context 'with valid parameters' do
       before do
-        FactoryGirl.create(:user, id: 1)
-        execute_request
+        post :create, params: {ticket: FactoryGirl.attributes_for(:ticket).merge(user_id: 1)}
       end
       it 'returns a success response' do
         expect(response).to have_http_status(:success)
@@ -22,6 +18,16 @@ RSpec.describe TicketsController, type: :controller do
       it 'returns created ticket object' do
         ticket = Ticket.new(JSON.parse(response.body))
         expect(ticket).to be_truthy
+      end
+    end
+
+    context 'with validation error' do
+      before do
+        post :create, params: {ticket: FactoryGirl.attributes_for(:ticket).merge(user_id: 1, title: '')}
+      end
+      it 'returns model validation errors' do
+        expect(JSON.parse(response.body))
+            .to eq(JSON.parse('{"title": ["can\'t be blank"] }'))
       end
     end
   end
