@@ -2,11 +2,6 @@ require 'rails_helper'
 
 RSpec.describe TicketsController, type: :controller do
   describe 'POST create' do
-    let(:ticket) {FactoryGirl.build(:ticket, id: 1)}
-
-    before(:all) do
-      #FactoryGirl.create(:user, id: 1) if User.find(1).blank?
-    end
 
     context 'with valid parameters' do
       before do
