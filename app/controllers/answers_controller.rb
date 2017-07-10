@@ -6,7 +6,7 @@ class AnswersController < ApplicationController
   def index
     @answers = Answer.where(ticket_id: params[:ticket_id])
 
-    render json: @answers, include: {user: {only: :email}}
+    render json: @answers, include: {user: {only: [:email, :admin]}}
   end
 
   # GET /answers/1

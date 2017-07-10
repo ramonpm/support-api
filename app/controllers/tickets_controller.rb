@@ -4,7 +4,7 @@ class TicketsController < ApplicationController
 
   # GET /tickets
   def index
-    @tickets = Ticket.all
+    @tickets = current_user.admin? ? Ticket.all : current_user.tickets
 
     render json: @tickets
   end
@@ -41,13 +41,13 @@ class TicketsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_ticket
-      @ticket = Ticket.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_ticket
+    @ticket = Ticket.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def ticket_params
-      params.require(:ticket).permit(:title, :description, :status, :user_id)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def ticket_params
+    params.require(:ticket).permit(:title, :description, :status, :user_id)
+  end
 end
