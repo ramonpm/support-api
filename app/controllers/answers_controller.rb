@@ -1,11 +1,12 @@
 class AnswersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_answer, only: [:show, :update, :destroy]
 
   # GET /answers
   def index
-    @answers = Answer.all
+    @answers = Answer.where(ticket_id: params[:ticket_id])
 
-    render json: @answers
+    render json: @answers, include: {user: {only: :email}}
   end
 
   # GET /answers/1
@@ -16,9 +17,10 @@ class AnswersController < ApplicationController
   # POST /answers
   def create
     @answer = Answer.new(answer_params)
+    @answer.user = current_user
 
     if @answer.save
-      render json: @answer, status: :created, location: ticket_answer_path(@answer.ticket_id, @answer.id)
+      render json: @answer, include: {user: {only: :email}}, status: :created, location: ticket_answer_path(@answer.ticket_id, @answer.id)
     else
       render json: @answer.errors, status: :unprocessable_entity
     end
@@ -39,13 +41,13 @@ class AnswersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_answer
-      @answer = Answer.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_answer
+    @answer = Answer.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def answer_params
-      params.require(:answer).permit(:message, :ticket_id, :user_id)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def answer_params
+    params.require(:answer).permit(:message, :ticket_id, :user_id)
+  end
 end

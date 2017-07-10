@@ -1,4 +1,5 @@
 class TicketsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_ticket, only: [:show, :update, :destroy]
 
   # GET /tickets
@@ -16,6 +17,7 @@ class TicketsController < ApplicationController
   # POST /tickets
   def create
     @ticket = Ticket.new(ticket_params)
+    @ticket.user = current_user
 
     if @ticket.save
       render json: @ticket, status: :created, location: @ticket
