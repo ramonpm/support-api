@@ -4,7 +4,7 @@ class TicketsController < ApplicationController
 
   # GET /tickets
   def index
-    @tickets = current_user.admin? ? Ticket.all : current_user.tickets
+    @tickets = current_user.type == Customer.class.name ? current_user.tickets : Ticket.all
 
     render json: @tickets
   end

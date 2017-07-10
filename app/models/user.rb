@@ -6,4 +6,8 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
   has_many :tickets
   has_many :answers
+
+  def serializable_hash(options = nil)
+    super.merge 'type' => type
+  end
 end
