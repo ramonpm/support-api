@@ -4,13 +4,13 @@ class TicketsController < ApplicationController
 
   # GET /tickets
   def index
-    @tickets = current_user.type == Customer.class.name ? current_user.tickets : Ticket.all
+    @tickets = current_user.type == Customer.name ? current_user.tickets : Ticket.all
 
     render json: @tickets
   end
 
   def pdf_report
-    tickets = Ticket.all
+    tickets = Ticket.where('finished_at >= ?', 1.month.ago)
     ac = ActionController::Base.new
     html_string = ac.render_to_string template: 'tickets/pdf_report', locals: {tickets: tickets}
     pdf = WickedPdf.new.pdf_from_string(html_string)
