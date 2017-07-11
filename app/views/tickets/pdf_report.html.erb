@@ -1,5 +1,13 @@
-<h1>AHHHHHH eoooo</h1>
+<h1><%= Date.today.strftime('%d %b %y') %> - Last 30 days finished tickets</h1>
 
 <% tickets.each do |ticket| %>
-    <%= ticket.title %>
+    <hr>
+    <dl>
+      <dt>Autor:</dt>
+      <dd><%= ticket.user.email %></dd>
+      <dt>Description:</dt>
+      <dd><%= ticket.description %></dd>
+      <dt>Finished at:</dt>
+      <dd><%= ticket.finished_at.strftime('%d %b %y') %></dd>
+    </dl>
 <% end %>

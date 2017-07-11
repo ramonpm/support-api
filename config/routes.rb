@@ -6,6 +6,10 @@ Rails.application.routes.draw do
       get 'pdf_report'
     end
 
+    member do
+      put 'finish'
+    end
+
     resources :answers
   end
   resources :users

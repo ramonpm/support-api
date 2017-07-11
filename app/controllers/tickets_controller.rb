@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_ticket, only: [:show, :update, :destroy]
+  before_action :set_ticket, only: [:show, :update, :finish, :destroy]
 
   # GET /tickets
   def index
@@ -37,6 +37,17 @@ class TicketsController < ApplicationController
   # PATCH/PUT /tickets/1
   def update
     if @ticket.update(ticket_params)
+      render json: @ticket
+    else
+      render json: @ticket.errors, status: :unprocessable_entity
+    end
+  end
+
+  # PUT /tickets/1/finish
+  def finish
+    @ticket.finished_at = DateTime.now
+    @ticket.status = Ticket::FINISHED
+    if @ticket.save
       render json: @ticket
     else
       render json: @ticket.errors, status: :unprocessable_entity
