@@ -10,7 +10,11 @@ class TicketsController < ApplicationController
   end
 
   def pdf_report
-    render pdf: WickedPdf.new.pdf_from_html_file(Rails.root + 'app/views/layouts/pdf_report.html.erb')
+    tickets = Ticket.all
+    ac = ActionController::Base.new
+    html_string = ac.render_to_string template: 'tickets/pdf_report', locals: {tickets: tickets}
+    pdf = WickedPdf.new.pdf_from_string(html_string)
+    send_data pdf, type: 'application/pdf'
   end
 
   # GET /tickets/1

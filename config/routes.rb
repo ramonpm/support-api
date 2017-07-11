@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
 
   resources :tickets do
+    collection do
+      get 'pdf_report'
+    end
+
     resources :answers
   end
   resources :users
