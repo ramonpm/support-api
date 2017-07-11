@@ -1,4 +1,4 @@
-<h1><%= Date.today.strftime('%d %b %y') %> - Last 30 days finished tickets</h1>
+<h1><%= Date.today.strftime('%d %b %y') %> - Last one month closed tickets</h1>
 
 <% tickets.each do |ticket| %>
     <hr>
@@ -7,7 +7,7 @@
       <dd><%= ticket.user.email %></dd>
       <dt>Description:</dt>
       <dd><%= ticket.description %></dd>
-      <dt>Finished at:</dt>
-      <dd><%= ticket.finished_at.strftime('%d %b %y') %></dd>
+      <dt>Closed at:</dt>
+      <dd><%= ticket.closed_at.strftime('%d %b %y') %></dd>
     </dl>
 <% end %>

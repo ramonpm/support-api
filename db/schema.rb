@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20170711155119) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.timestamp "finished_at"
+    t.timestamp "closed_at"
     t.index ["user_id"], name: "index_tickets_on_user_id"
   end
 

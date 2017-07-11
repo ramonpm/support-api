@@ -1,7 +1,7 @@
 class Ticket < ApplicationRecord
   PENDING = 0
   ANSWERED = 10
-  FINISHED = 20
+  CLOSED = 20
 
   belongs_to :user
   has_many :answers

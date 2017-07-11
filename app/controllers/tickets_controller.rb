@@ -10,7 +10,7 @@ class TicketsController < ApplicationController
   end
 
   def pdf_report
-    tickets = Ticket.where('finished_at >= ?', 1.month.ago)
+    tickets = Ticket.where('closed_at >= ?', 1.month.ago)
     ac = ActionController::Base.new
     html_string = ac.render_to_string template: 'tickets/pdf_report', locals: {tickets: tickets}
     pdf = WickedPdf.new.pdf_from_string(html_string)
@@ -45,8 +45,8 @@ class TicketsController < ApplicationController
 
   # PUT /tickets/1/finish
   def finish
-    @ticket.finished_at = DateTime.now
-    @ticket.status = Ticket::FINISHED
+    @ticket.closed_at = DateTime.now
+    @ticket.status = Ticket::CLOSED
     if @ticket.save
       render json: @ticket
     else
