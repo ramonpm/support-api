@@ -9,6 +9,10 @@ class TicketsController < ApplicationController
     render json: @tickets
   end
 
+  def pdf_report
+    render pdf: WickedPdf.new.pdf_from_html_file(Rails.root + 'app/views/layouts/pdf_report.html.erb')
+  end
+
   # GET /tickets/1
   def show
     render json: @ticket
