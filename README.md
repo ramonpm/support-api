@@ -1,4 +1,12 @@
-A bug found in one of the gems, **Active Model Serializers**, freezed me for a long time and the 'workaround' was **downgrade it's version for 0.10.0.rc4** like it is in Gemfile;
+# Rails 5 API - Setup
+1. Devise Token Auth
+2. Rspec + Cocumber
+3. Wicked PDF
+4. Active Model Serializers
 
-The rails 5 version introduced an **API mode**, that I used, that unfortunately made things more complicated to me when trying to create a pdf file using the helper function **render_to_string** passing a template as parameter. The **api mode has no templates** and that method didn't work, after a lot of searching I found an workaround that uses the **base rails form to call that render_to_string function**.
+# Troubleshooting
+
+1. A bug found in one of the gems, **Active Model Serializers**, freezed me for a long time and the 'workaround' was **downgrade it's version for 0.10.0.rc4** like it is in Gemfile;
+
+2. The rails 5 version introduced an **API mode**, that I used, that unfortunately made things more complicated to me when trying to create a pdf file using the helper function **render_to_string** passing a template as parameter. The **api mode has no templates** and that method didn't work, after a lot of searching I found an workaround that uses the **base rails form to call that render_to_string function**.
 
